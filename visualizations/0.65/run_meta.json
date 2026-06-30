@@ -1,0 +1,18 @@
+{
+  "run_timestamp": "2026-06-27T09:37:40",
+  "similarity_threshold": 0.6,
+  "total_objectives_in_csv": 33686,
+  "total_objectives_processed": 33686,
+  "total_valid_objectives": 80555,
+  "skipped_non_english": 389,
+  "skipped_empty": 225,
+  "mapped_to_approved_themes": 56765,
+  "unmapped_after_approved": 23790,
+  "draft_clusters_identified": 114,
+  "clusters_gt_10": 114,
+  "mapped_to_draft_themes": 23790,
+  "total_mapped": 80555,
+  "llm_prompt_tokens": 47556,
+  "llm_completion_tokens": 14229,
+  "llm_total_tokens": 61785
+}
