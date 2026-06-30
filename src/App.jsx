@@ -5,7 +5,7 @@ import VisualizationHub from './pages/VisualizationHub';
 import ComparisonPlayground from './pages/ComparisonPlayground';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('presentation');
+  const [activeTab, setActiveTab] = useState('visualizations');
 
   const renderActivePage = () => {
     switch (activeTab) {

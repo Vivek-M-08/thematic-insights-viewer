@@ -46,15 +46,10 @@ function syncWorkspaceAssets() {
   console.log(`[Vite Sync] Detected thresholds: ${availableThresholds.join(', ')}`);
 
   // 2. Sync approved_themes.json
-  const approvedSrc = path.resolve(rootDir, '..', 'analytics-service', 'thematic_analysis', 'approved_themes.json');
   const approvedDestLocal = path.resolve(rootDir, 'approved_themes.json');
   const approvedDestPublic = path.resolve(publicDir, 'approved_themes.json');
 
-  if (fs.existsSync(approvedSrc)) {
-    fs.copyFileSync(approvedSrc, approvedDestPublic);
-    fs.copyFileSync(approvedSrc, approvedDestLocal);
-    console.log('[Vite Sync] Copied approved_themes.json from analytics-service.');
-  } else if (fs.existsSync(approvedDestLocal)) {
+  if (fs.existsSync(approvedDestLocal)) {
     fs.copyFileSync(approvedDestLocal, approvedDestPublic);
     console.log('[Vite Sync] Copied approved_themes.json from root directory.');
   }
@@ -84,11 +79,10 @@ function workspaceSyncPlugin() {
       // Watch visualizations directory for directory additions/removals
       server.watcher.add(vizTargetDir);
 
-      // Watch approved_themes.json in root or analytics-service
+      // Watch approved_themes.json in root
       const rootDir = path.resolve(__dirname, '..');
-      const approvedSrcWatch = path.resolve(rootDir, '..', 'analytics-service', 'thematic_analysis', 'approved_themes.json');
       const approvedLocalWatch = path.resolve(rootDir, 'approved_themes.json');
-      server.watcher.add([approvedSrcWatch, approvedLocalWatch]);
+      server.watcher.add(approvedLocalWatch);
 
       const handleFileChange = (file) => {
         if (file.includes('visualizations') || file.includes('approved_themes.json')) {

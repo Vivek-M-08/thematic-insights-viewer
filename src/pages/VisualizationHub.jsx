@@ -18,14 +18,16 @@ export default function VisualizationHub() {
       .then((res) => (res.ok ? res.json() : ['0.90', '0.65', '0.60']))
       .then((data) => {
         setThresholds(data);
-        if (data.length > 0) {
+        if (data.includes('0.60')) {
+          setThreshold('0.60');
+        } else if (data.length > 0) {
           setThreshold(data[0]);
         }
       })
       .catch(() => {
         const fallback = ['0.90', '0.65', '0.60'];
         setThresholds(fallback);
-        setThreshold(fallback[0]);
+        setThreshold('0.60');
       });
   }, []);
 
