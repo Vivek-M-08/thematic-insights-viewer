@@ -1,5 +1,5 @@
 {
-  "run_timestamp": "2026-06-29T12:23:42",
+  "run_timestamp": "2026-07-01T10:02:39",
   "similarity_threshold": 0.9,
   "total_objectives_in_csv": 33686,
   "total_objectives_processed": 33686,
@@ -7,13 +7,13 @@
   "skipped_non_english": 389,
   "skipped_short": 854,
   "skipped_empty": 225,
-  "mapped_to_approved_themes": 5390,
-  "unmapped_after_approved": 74311,
-  "draft_clusters_identified": 92,
-  "clusters_gt_10": 92,
-  "mapped_to_draft_themes": 74311,
+  "mapped_to_approved_themes": 5352,
+  "unmapped_after_approved": 74349,
+  "draft_clusters_identified": 89,
+  "clusters_gt_10": 89,
+  "mapped_to_draft_themes": 74349,
   "total_mapped": 79701,
-  "llm_prompt_tokens": 38185,
-  "llm_completion_tokens": 11526,
-  "llm_total_tokens": 49711
+  "llm_prompt_tokens": 36911,
+  "llm_completion_tokens": 10991,
+  "llm_total_tokens": 47902
 }
