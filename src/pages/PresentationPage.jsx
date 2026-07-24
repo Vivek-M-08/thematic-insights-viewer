@@ -15,7 +15,7 @@ export default function PresentationPage() {
   const pipelineSteps = [
     {
       title: 'Step 1: Pre-processing & Splitting',
-      description: 'Filters out non-English feedback and splits pipe-separated sentences (e.g. "1. Lack of toilets | 2. Distance of school is far") into individual, clean objective statements to ensure precise mapping.',
+      description: 'Filters out non-English feedback and splits pipe-separated sentences (e.g. "1. Lack of toilets | 2. Distance of school is far") into individual, clean challenge statements to ensure precise mapping.',
       icon: FileText,
       badge: 'Data Cleansing'
     },
@@ -81,7 +81,7 @@ export default function PresentationPage() {
               <h3>Visual Flowchart</h3>
               <div className="flow-steps-grid">
                 <div className="flow-node">
-                  <div className="node-box">Raw CSV Objectives</div>
+                  <div className="node-box">Raw CSV Challenges</div>
                 </div>
                 <div className="flow-arrow">⬇️</div>
                 <div className="flow-node">
@@ -179,7 +179,7 @@ export default function PresentationPage() {
               <div className="glass-panel dash-feature-card">
                 <div className="dash-icon-circle">🗺️</div>
                 <h4>2D Document Map</h4>
-                <p>Interactive projection mapping objectives in 2D space based on embeddings. Hover over points to read raw statements.</p>
+                <p>Interactive projection mapping challenges in 2D space based on embeddings. Hover over points to read raw statements.</p>
               </div>
               <div className="glass-panel dash-feature-card">
                 <div className="dash-icon-circle">🌳</div>

@@ -81,7 +81,7 @@ export default function VisualizationHub() {
     const defIdx = headers.findIndex(h => h.toLowerCase() === 'defination' || h.toLowerCase() === 'definition');
     const keysIdx = headers.findIndex(h => h.toLowerCase() === 'keywords');
     const statusIdx = headers.findIndex(h => h.toLowerCase() === 'status');
-    const countIdx = headers.findIndex(h => h.toLowerCase() === 'objective count');
+    const countIdx = headers.findIndex(h => h.toLowerCase() === 'objective count' || h.toLowerCase() === 'challenge count');
     const stmtsIdx = headers.findIndex(h => h.toLowerCase() === 'original statements');
 
     let currentThemeId = "";
@@ -192,13 +192,15 @@ export default function VisualizationHub() {
   const activeStatements = getMappedStatements(selectedTheme);
 
   const handleExportCSV = () => {
+    const totalValid = meta?.total_valid_objectives || meta?.total_mapped || csvData.reduce((acc, t) => acc + (t.count || 0), 0);
     const headers = [
       'Theme ID',
       'Theme Name',
       'Status',
       'Definition',
       'Keywords',
-      'Objective Count',
+      'Challenge Count',
+      '% of Total Valid',
       'Statement ID',
       'Statement Text',
       'Similarity Score'
@@ -214,6 +216,7 @@ export default function VisualizationHub() {
       const definition = theme.definition || '';
       const keywords = theme.keywords || '';
       const count = theme.count || 0;
+      const pct = totalValid > 0 ? ((count / totalValid) * 100).toFixed(2) + '%' : '0.00%';
 
       if (statements.length === 0) {
         rows.push([
@@ -223,6 +226,7 @@ export default function VisualizationHub() {
           definition,
           keywords,
           count,
+          pct,
           '',
           '',
           ''
@@ -236,6 +240,7 @@ export default function VisualizationHub() {
             definition,
             keywords,
             count,
+            pct,
             stmt.id || '',
             stmt.text || '',
             stmt.score !== null ? stmt.score : ''
@@ -342,7 +347,7 @@ export default function VisualizationHub() {
               <span className="metric-value">{(meta.total_objectives_processed || 0).toLocaleString()}</span>
             </div>
             <div className="metric-card success">
-              <span className="metric-label">Total Valid Objectives</span>
+              <span className="metric-label">Total Valid Challenges</span>
               <span className="metric-value">{(meta.total_valid_objectives || meta.total_mapped || 0).toLocaleString()}</span>
             </div>
             <div className="metric-card warning">
@@ -361,7 +366,7 @@ export default function VisualizationHub() {
               <span className="metric-value">{(meta.mapped_to_approved_themes || 0).toLocaleString()}</span>
             </div>
             <div className="metric-card warning">
-              <span className="metric-label">Unmapped Objectives</span>
+              <span className="metric-label">Unmapped Challenges</span>
               <span className="metric-value">{(meta.unmapped_after_approved || 0).toLocaleString()}</span>
             </div>
             <div className="metric-card accent">
@@ -369,7 +374,7 @@ export default function VisualizationHub() {
               <span className="metric-value">{(meta.draft_clusters_identified || 0).toLocaleString()}</span>
             </div>
             <div className="metric-card accent">
-              <span className="metric-label">Clusters &gt; 10 Objectives</span>
+              <span className="metric-label">Clusters &gt; 10 Challenges</span>
               <span className="metric-value">{(meta.clusters_gt_10 || 0).toLocaleString()}</span>
             </div>
           </div>
@@ -445,11 +450,14 @@ export default function VisualizationHub() {
                         <th>Theme Name</th>
                         <th>Status</th>
                         <th>Size</th>
+                        <th>% of Total</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredThemes.map((theme) => {
                         const isSelected = selectedTheme && selectedTheme.themeName === theme.themeName;
+                        const totalValid = meta?.total_valid_objectives || meta?.total_mapped || csvData.reduce((acc, t) => acc + (t.count || 0), 0);
+                        const pctVal = totalValid > 0 ? ((theme.count / totalValid) * 100).toFixed(2) : '0.00';
                         return (
                           <tr
                             key={theme.themeName}
@@ -469,6 +477,9 @@ export default function VisualizationHub() {
                             </td>
                             <td>
                               <span className="theme-cell-count">{theme.count}</span>
+                            </td>
+                            <td>
+                              <span className="theme-cell-pct">{pctVal}%</span>
                             </td>
                           </tr>
                         );
@@ -748,6 +759,14 @@ export default function VisualizationHub() {
           font-weight: 700;
           font-size: 1.1rem;
           color: var(--text-primary);
+          padding-right: 1rem;
+        }
+
+        .theme-cell-pct {
+          font-family: var(--font-display);
+          font-weight: 600;
+          font-size: 0.95rem;
+          color: var(--color-primary);
           padding-right: 1rem;
         }
 
